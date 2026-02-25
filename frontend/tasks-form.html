@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Task - TaskTrack</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
+  <h1>Add Task</h1>
+
+  <form id="taskForm">
+    <label>Title:</label><br>
+    <input type="text" id="title" required><br><br>
+
+    <label>Priority:</label><br>
+    <select id="priority">
+      <option value="Low">Low</option>
+      <option value="Medium" selected>Medium</option>
+      <option value="High">High</option>
+    </select><br><br>
+
+    <label>Due Date (optional):</label><br>
+    <input type="date" id="dueDate"><br><br>
+
+    <button type="submit">Save Task</button>
+    <a href="tasks.html">Cancel</a>
+  </form>
+
+  <script>
+    
+    function loadTasks() {
+      const data = localStorage.getItem("tasks");
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveTasks(tasks) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    document.getElementById("taskForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value.trim();
+      const priority = document.getElementById("priority").value;
+      const dueDate = document.getElementById("dueDate").value;
+
+      if (title === "") {
+        alert("Title is required");
+        return;
+      }
+
+      const tasks = loadTasks();
+
+      const newTask = {
+        id: Date.now(),          // unique id
+        title: title,
+        priority: priority,
+        dueDate: dueDate,
+        status: "Pending"
+      };
+
+      tasks.push(newTask);
+      saveTasks(tasks);
+
+      window.location.href = "tasks.html";
+    });
+  </script>
+
+</body>
+</html>
