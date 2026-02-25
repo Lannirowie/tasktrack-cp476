@@ -14,3 +14,16 @@ document.getElementById("registerForm")?.addEventListener("submit", function (ev
   alert("Registration successful (mock)! Redirecting to login...");
   window.location.href = "login.html"; 
 });
+
+
+document.getElementById("loginForm")?.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    alert("Login successful (mock)!");
+
+    window.location.href = "tasks.html";
+});
